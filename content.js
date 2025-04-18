@@ -18,3 +18,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     sendResponse(scrapedData);
   }
 });
+
+// Listen for messages from the popup or background script
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'scrape') {
+    const table = document.getElementById('incident_table');
+    if (table) {
+      const rows = Array.from(table.rows);
+      const data = rows.map(row => {
+        return Array.from(row.cells).map(cell => cell.innerText);
+      });
+      sendResponse({ success: true, data });
+    } else {
+      sendResponse({ success: false, error: 'Table not found' });
+    }
+  }
+  return true; // Keep the message channel open for async responses
+});
