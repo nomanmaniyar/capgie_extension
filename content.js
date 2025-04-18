@@ -19,12 +19,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
-// Listen for messages from the popup or background script
+// Add a function to wait for the table to load before scraping
+function waitForTableToLoad(tableId, callback) {
+  const observer = new MutationObserver((mutations, obs) => {
+    const table = document.getElementById(tableId);
+    if (table) {
+      obs.disconnect();
+      callback(table);
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+// Update the scrape logic to wait for the table
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log('Message received in content.js:', request);
   if (request.action === 'scrape') {
-    const table = document.getElementById('incident_table');
-    if (table) {
+    waitForTableToLoad('incident_table', (table) => {
       console.log('Table found with ID incident_table');
       const rows = Array.from(table.rows);
       const data = rows.map(row => {
@@ -32,10 +44,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       });
       console.log('Scraped table data:', data);
       sendResponse({ success: true, data });
-    } else {
-      console.error('Table with ID incident_table not found');
-      sendResponse({ success: false, error: 'Table not found' });
-    }
+    });
+
+    // Return true to indicate async response
+    return true;
   }
-  return true; // Keep the message channel open for async responses
 });
