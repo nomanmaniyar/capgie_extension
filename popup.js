@@ -6,19 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (scrapeButton) {
     scrapeButton.addEventListener('click', () => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (tabs[0].id) {
-          chrome.scripting.executeScript(
-            {
-              target: { tabId: tabs[0].id },
-              func: () => {
-                chrome.runtime.sendMessage({ action: 'scrape' }, (response) => {
-                  console.log('Scraped Data:', response);
-                  alert(JSON.stringify(response, null, 2));
-                });
-              }
-            }
-          );
+      chrome.runtime.sendMessage({ action: 'scrape' }, (response) => {
+        if (response) {
+          document.getElementById('output').textContent = JSON.stringify(response, null, 2);
+        } else {
+          document.getElementById('output').textContent = 'No data received.';
         }
       });
     });
