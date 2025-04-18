@@ -1,0 +1,25 @@
+out
+dist
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Chrome Extension build artifacts
+*.crx
+*.pem
+
+# Temporary files
+*.tmp
+*.swp
+
+# Other
+.vscode/
+.vscode-test/
+*.vsix
