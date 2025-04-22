@@ -2,6 +2,13 @@ window.onload = function () {
   console.log("*************** Content script loaded ***************.");
   const host = document.location.host;
 
+  // list all the child elements of the body tag
+  const bodyChildren = document.body.children;
+  console.log("*************** Body children ***************.");
+  for (let i = 0; i < bodyChildren.length; i++) {
+    console.log(bodyChildren[i]);
+  }
+
   // wait for h1 to be loaded add delay that cjheck the h1 tag every 2 seconds for 30 seconds
   let count = 0;
   const interval = setInterval(() => {
