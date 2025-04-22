@@ -13,7 +13,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://fnc.service-now.com/*"],
       "js": ["content.js"]
     }
   ],
