@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Scraped Data:', response.data);
             alert('Table data scraped successfully! Check the console for details.');
           } else {
-            console.error('Error scraping table:', response ? response.error : 'No response');
+            console.error('Error scraping table:', response ? response : 'No response');
             alert('Failed to scrape table.');
           }
         });
