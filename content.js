@@ -3,7 +3,7 @@ window.onload = function () {
   const host = document.location.host;
 
   // In your content script
-  const h1 = deepQuerySelector(document.body, "h1");
+  const h1 = deepQuerySelector(document.body, "iframe");
   console.log("Found h1:", h1);
 };
 
