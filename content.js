@@ -16,6 +16,8 @@ function deepQuerySelector(root, selector) {
   const allElements = root.querySelectorAll("*");
   for (const el of allElements) {
     if (el.shadowRoot) {
+      console.log("Found shadow root:", el.shadowRoot);
+      
       const foundInShadow = deepQuerySelector(el.shadowRoot, selector);
       if (foundInShadow) return foundInShadow;
     }
