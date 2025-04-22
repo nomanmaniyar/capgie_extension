@@ -48,7 +48,7 @@ function handleIframe() {
   return { success: false, error: 'Table not found in iframes' };
 }
 
-// Updated observeTableLoad function with logging
+// Use MutationObserver to wait for the table to load dynamically
 function observeTableLoad() {
   logger('info', 'Setting up MutationObserver to detect dynamic table loading');
   const observer = new MutationObserver((mutationsList, observer) => {
@@ -67,7 +67,7 @@ function observeTableLoad() {
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
-// Updated message listener with logging
+// Updated message listener with MutationObserver
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   logger('info', 'Received message from extension', message);
   if (message.action === 'scrape') {

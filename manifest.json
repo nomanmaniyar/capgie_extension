@@ -14,7 +14,8 @@
   "content_scripts": [
     {
       "matches": ["https://fnc.service-now.com/*"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "run_at": "document_idle"
     }
   ],
   "action": {
