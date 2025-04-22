@@ -1,10 +1,14 @@
 window.onload = function () {
   console.log("*************** Content script loaded ***************.");
+  const host = document.location.host;
 
   // wait for h1 to be loaded add delay that cjheck the h1 tag every 2 seconds for 30 seconds
   let count = 0;
   const interval = setInterval(() => {
     const h1 = document.querySelector("h1");
+    console.log("*************** Checking for h1 tag ***************.");
+    console.log("*************** host: " + host + " ***************.");
+    
     if (h1) {
       clearInterval(interval);
       startScrapig();
